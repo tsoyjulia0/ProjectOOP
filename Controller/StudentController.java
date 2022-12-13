@@ -53,7 +53,7 @@ public class StudentController extends UserController implements showCourses {
     public void viewInfoTeacher() {
 
     	for(Course course: student.getCourses()) {
-    		System.out.println(course.getTeacher() + "/n");
+    		System.out.println(course.getTeacher());
     	}
     	
     }
@@ -82,7 +82,7 @@ public class StudentController extends UserController implements showCourses {
     
     public void showBooks() {
     	for(Book book:student.getBooks()) {
-    		System.out.println(book+"\n");
+    		System.out.println(book);
     	}
     }
     
