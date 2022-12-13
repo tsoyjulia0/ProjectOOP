@@ -178,7 +178,9 @@ public class StudentController extends UserController implements showCourses {
 
 	@Override
 	public Vector<Course> viewCourses() {
-		return student.getCourses();
+		for(Course course: student.getCourses()){
+			System.out.println(course);
+		}
 	} 
 }
 
