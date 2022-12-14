@@ -33,9 +33,9 @@ public class StudentModel extends UserModel {
     public StudentModel() {
     }
     
-    public StudentModel(String login,String pass, Degree deg) {
-    	super(login,pass);
-    	this.degree = deg;
+    public StudentModel(int id, String login,String pass, String name, String surname, Gender g) {
+    	super(id, login,pass, name, surname, g);
+  
     }
     
     public Vector<Mark> getMarks(){
