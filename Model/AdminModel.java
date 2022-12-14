@@ -7,9 +7,8 @@ public class AdminModel extends UserModel implements Cloneable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminModel(String login, String pass) {
-		super(login, pass);
-		// TODO Auto-generated constructor stub
+	public AdminModel(int id, String login,String pass, String name, String surname, Gender g) {
+		super(id, login, pass, name, surname, g);
 	}
 
 	@Override
