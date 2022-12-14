@@ -59,6 +59,10 @@ public class DataBase {
     public static void removeCourse(Course c) {
     	courses.remove(c);
     }
+	
+    public static void addCourseInfo(CourseInfo course) {
+    	courseInfo.add(course);
+    }
     
     public static void removeMarks(Mark mr) {
     	marks.remove(mr);
