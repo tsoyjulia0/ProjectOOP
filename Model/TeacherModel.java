@@ -18,8 +18,8 @@ public class TeacherModel extends EmployeeModel implements Cloneable{
 		DataBase.addTeacher(this);
 	}
 	
-	public TeacherModel(String login, String pass, TeachDegree deg) {
-		super(login, pass);
+	public TeacherModel(int id, String login,String pass, String name, String surname, Gender g, TeachDegree deg) {
+		super(id, login, pass, name, surname, g);
 		this.degree = deg;
 	}
 	
@@ -54,8 +54,7 @@ public class TeacherModel extends EmployeeModel implements Cloneable{
     	return t;
     }
     
-    public int compareTo(Object obj) {
-    	TeacherModel t = (TeacherModel)obj;
+    public int compareTo(TeacherModel t) {
    	 	if(t.rate > this.rate) return -1;
    	 	else if(t.rate < this.rate) return 1;
    	 	else return 0;
