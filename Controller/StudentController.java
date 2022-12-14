@@ -53,7 +53,7 @@ public class StudentController extends UserController implements showCourses {
     public void viewInfoTeacher() {
 
     	for(Course course: student.getCourses()) {
-    		System.out.println(course.getTeacher());
+    		System.out.println(course.getTeacher() + "/n");
     	}
     	
     }
@@ -82,7 +82,7 @@ public class StudentController extends UserController implements showCourses {
     
     public void showBooks() {
     	for(Book book:student.getBooks()) {
-    		System.out.println(book);
+    		System.out.println(book+"\n");
     	}
     }
     
@@ -177,7 +177,7 @@ public class StudentController extends UserController implements showCourses {
 }
 
 	@Override
-	public Vector<Course> viewCourses() {
+	public void viewCourses() {
 		for(Course course: student.getCourses()){
 			System.out.println(course);
 		}
