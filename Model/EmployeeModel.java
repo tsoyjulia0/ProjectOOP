@@ -11,8 +11,8 @@ public class EmployeeModel extends UserModel implements Comparable<Object>{
 		
 	}
 	
-	public EmployeeModel(String login, String pass) {
-		super(login, pass);
+	public EmployeeModel(int id, String login,String pass, String name, String surname, Gender g) {
+		super(id, login, pass, name, surname, g);
 	}
 	
 	public void setMessage(String message) {
