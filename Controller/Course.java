@@ -3,14 +3,13 @@ package Controller;
 import java.util.Vector;
 
 import Model.StudentModel;
-import Model.TeacherModel;
 
 public class Course extends CourseInfo{
 	private int numOfStudents;
 	private TeacherModel teacher;
 	private StudentModel student;
 	public Vector<String> courseFiles = new Vector<>();
-	public Vector<StudentModel> allStudents = new Vector<>();
+	private Vector<StudentModel> allStudents = new Vector<>();
 	
 	public Course() {
 		
@@ -20,10 +19,13 @@ public class Course extends CourseInfo{
 		teachers.add(teacher);
 	}
 	
-	public Course(int id, String name, String prereq, int cred, int numOfStuds) {
-		super(id, name, prereq, cred);
-		this.numOfStudents = numOfStuds;
+	public Course(CourseInfo courseInfo,TeacherModel teacher, Vector<StudentModel> students) {
+		super(courseInfo.getID(),courseInfo.getName(),courseInfo.getPrereq(),courseInfo.getNumOfCred());
+		allStudents=students;
+		this.teacher=teacher;
 	}
+	
+	
 	
 	private void setNumOfStuds(int numStud) {
 		this.numOfStudents = numStud;
