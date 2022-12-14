@@ -16,6 +16,7 @@ public class DataBase {
     private static Vector<Mark> marks;
     private static Vector<CourseInfo> courseInfo;
     
+    
     static {
     	teachers = new Vector<TeacherModel> ();
     	courses = new Vector<Course> ();
@@ -42,12 +43,35 @@ public class DataBase {
     public static void addTeacher(TeacherModel t) {
     	teachers.add(t);
     }
+    
+    public static void removeTeacher(TeacherModel t) {
+    	teachers.remove(t);
+    }
+    
+    public static void removeStudent(StudentModel s) {
+    	students.remove(s);
+    }
+    
+    public static void removeManager(ManagerModel m) {
+    	managers.remove(m);
+    }
+    
+    public static void removeCourse(Course c) {
+    	courses.remove(c);
+    }
+    
+    public static void removeMarks(Mark mr) {
+    	marks.remove(mr);
+    }
+    
     public static Vector<Course> getCourses() {
         return courses;
     }
+    
     public static void addCourse(Course t) {
     	courses.add(t);
     }
+    
     public static Vector<StudentModel> getStudents(Object sender) {
     	if(sender instanceof StudentModel) {
     		System.out.println("Нет доступа");
@@ -55,9 +79,11 @@ public class DataBase {
     	}
         return students;
     }
+    
     public static void addStudent(StudentModel s) {
     	students.add(s);
     }
+    
     public Vector<ManagerModel> getManagers(Object sender) {
     	if(sender instanceof StudentModel) {
     		System.out.println("Нет доступа");
@@ -65,6 +91,7 @@ public class DataBase {
     	}
         return managers;
     }
+    
     public static Vector<Course> getCourses(TeacherModel teacher){
 		Vector<Course> availableCourses=new Vector<Course>();
 		for(Course course:courses) {
@@ -84,6 +111,7 @@ public class DataBase {
 		}
 		return lectors;
     }
+    
     public static Vector<CourseInfo>getCoursesInfo(TeacherModel teacher){
     	Vector<CourseInfo> result=new Vector<>();
     	for(CourseInfo course:courseInfo) {
@@ -96,6 +124,7 @@ public class DataBase {
     	}
     	return result;
     }
+    
     public static Vector<CourseInfo> getCourseInfo(){
     	return courseInfo;
     }
@@ -105,6 +134,7 @@ public class DataBase {
     public static void addManager(ManagerModel m) {
     	managers.add(m);
     }
+    
     public Vector<Mark> getMarks() {
         return marks;
     }
