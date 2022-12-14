@@ -14,8 +14,8 @@ public class ManagerModel extends EmployeeModel implements Cloneable{
 	
 	}
 
-	public ManagerModel(String log, String pass, ManagerType type) {
-		super(log, pass);
+	public ManagerModel(int id, String login,String pass, String name, String surname, Gender g, ManagerType type) {
+		super(id, login, pass, name, surname, g);
 		this.type = type;
 	}
 	
@@ -51,11 +51,11 @@ public class ManagerModel extends EmployeeModel implements Cloneable{
     	return m;
     }
     
-//    public int compareTo(ManagerModel m) {
-//   	 	if(m.id > this.id) return -1;
-//   	 	else if(t.rate < this.rate) return 1;
-//   	 	else return 0;
-//   }
+    public int compareTo(ManagerModel m) {
+   	 	if(m.id > this.id) return -1;
+   	 	else if(m.id < this.id) return 1;
+   	 	else return 0;
+   }
 	
 	
 }
