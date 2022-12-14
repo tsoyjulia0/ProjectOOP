@@ -2,14 +2,17 @@ package Controller;
 
 import java.util.Vector;
 
+import Model.LessonModel;
 import Model.StudentModel;
+import Model.TeacherModel;
 
 public class Course extends CourseInfo{
 	private int numOfStudents;
 	private TeacherModel teacher;
 	private StudentModel student;
 	public Vector<String> courseFiles = new Vector<>();
-	private Vector<StudentModel> allStudents = new Vector<>();
+	public Vector<StudentModel> allStudents = new Vector<>();
+	private Vector<LessonModel> lessons = new Vector<>();
 	
 	public Course() {
 		
@@ -24,8 +27,6 @@ public class Course extends CourseInfo{
 		allStudents=students;
 		this.teacher=teacher;
 	}
-	
-	
 	
 	private void setNumOfStuds(int numStud) {
 		this.numOfStudents = numStud;
@@ -55,4 +56,8 @@ public class Course extends CourseInfo{
 		return teacher;
 	}
 
+	public void addLesson(LessonModel l) {
+		lessons.add(l);
+		super.addCourseLessons(l);
+	}
 }
