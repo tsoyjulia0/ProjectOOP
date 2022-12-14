@@ -11,16 +11,20 @@ public abstract class UserModel implements Comparable<Object> {
 	    private String login;
 	    private String password;
 	    private Gender gender;
-	    private Integer age;
-	    protected Integer id;
+	    private int age;
+	    protected int id;
 	    
 	    public UserModel() {
 	    
 	    }
 	    
-	    public UserModel(String login, String password) {
+	    public UserModel(int id, String login, String password,String name,String surname,Gender gender) {
+	    	this.id = id;
 	    	this.login = login;
 	    	this.password = password;
+	    	this.name=name;
+	    	this.surname=surname;
+	    	this.gender=gender;
 	    }
 	    
 	    protected void setName(String name) {
@@ -43,7 +47,7 @@ public abstract class UserModel implements Comparable<Object> {
 	        return this.login;
 	    }
 	 
-	    protected void setLogin(String login) {
+	    public void setLogin(String login) {
 	        this.login = login;
 	    }
 	 
@@ -51,7 +55,7 @@ public abstract class UserModel implements Comparable<Object> {
 	        return this.password;
 	    }
 	   
-	    protected void setPassword(String password) {
+	    public void setPassword(String password) {
 	        this.password = password;
 	    }
 	    
