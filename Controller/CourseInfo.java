@@ -2,7 +2,10 @@ package Controller;
 
 import java.util.Objects;
 import java.util.Vector;
+
+import Model.LessonModel;
 import Model.StudentModel;
+import Model.TeacherModel;
 import Model.UserModel;
 
 public class CourseInfo {
@@ -10,17 +13,21 @@ public class CourseInfo {
 	protected String courseName;
 	protected String prereq;
 	protected int numOfCredits;
+	protected Vector<LessonModel> allLessons = new Vector<>();
 	
 	Vector<TeacherModel> teachers = new Vector<>();
-
+	
 	private Vector<Course> courses=new Vector<>();
 	public void createCourse(TeacherModel teacher,Vector<StudentModel> students) {
 		Course course=new Course(this,teacher,students);
 		courses.add(course);
-		Database.addCourse(course);
+		DataBase.addCourse(course);
 		System.out.println("Created");
 	}
 	
+	{
+		DataBase.addCourseInfo(this);
+	}
 	
 	public CourseInfo() {
 		
@@ -99,6 +106,10 @@ public class CourseInfo {
 
 	public Vector<TeacherModel> getTeachers() {
 		return teachers;
+	}
+
+	public void addCourseLessons(LessonModel l) {
+		allLessons.add(l);
 	}
 	
 	
