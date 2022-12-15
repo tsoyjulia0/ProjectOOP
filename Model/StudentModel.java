@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import Controller.Book;
@@ -14,14 +15,17 @@ public class StudentModel extends UserModel {
 //    private Integer rate;
     private Integer yearOfStudy;
     private Degree degree;
-    public Integer cntCredits;
+    public int cntCredits = 0;
     private String org;
-    private Vector<Mark> marks;
     private Vector<Book> books;
-    private DiplomaProject diploma;
     private Vector<Course> courses;
     private Organization organization;
     private Faculty faculty;
+    private Vector<Mark> marks;
+    public HashMap<Course, Mark> grades;
+    private DiplomaProject diploma;
+    
+    
     
     {
     	marks = new Vector<Mark>();
@@ -33,8 +37,9 @@ public class StudentModel extends UserModel {
     public StudentModel() {
     }
     
-    public StudentModel(int id, String login,String pass, String name, String surname, Gender g) {
+    public StudentModel(int id, String login,String pass, String name, String surname, Gender g, int year) {
     	super(id, login,pass, name, surname, g);
+    	this.yearOfStudy = year;
   
     }
     
@@ -103,6 +108,10 @@ public class StudentModel extends UserModel {
     public DiplomaProject getDiploma() {
         return this.diploma;
     }
+    
+    public String showDiplomaInfo() {
+    	return "Diploma project: name " + this.getName() + " " + this.diploma;
+    }
 
     public void setDiploma(DiplomaProject diploma) {
         this.diploma = diploma;
@@ -114,6 +123,7 @@ public class StudentModel extends UserModel {
 
     public void addCourse(Course course) {
         courses.add(course);
+        this.cntCredits += course.getNumOfCred();
     }
     
     public void setYear(Integer year) {
@@ -137,6 +147,8 @@ public class StudentModel extends UserModel {
     public Faculty getFac() {
         return this.faculty;
     }
+
+
     
     
 }
