@@ -9,27 +9,24 @@ import java.util.Vector;
 import Model.StudentModel;
 
 import Model.TeacherModel;
+import Model.UserModel;
 import Controller.DiplomaProject;
 
-public class StudentController extends UserController implements showCourses {
-    private StudentModel student;
+public class StudentController implements showCourses {
+private StudentModel student;
     
     
 	public StudentController(StudentModel s) {
-		super(s);
+		student = s;
 	}    
     
-    public void registerCourse(Course c, int courseId) {
+    public void registerCourse(Course c) {
     	if((ManagerController.approveReg(student, c) == false))
     		System.out.println("Не удалось зарегаться");
     	else {
     		Vector<Course> courses=DataBase.getCourses();
     		Vector<Course> available = new Vector<Course>();
-    		for(Course course:courses) {
-    			if(c.getID()== courseId) {
-    				available.add(course);
-    			}
-    		}
+    		available = DataBase.getCourses();
     		System.out.println("Выберите поток: ");
     		int index = 1;
     		for(Course course:available) {
@@ -53,7 +50,7 @@ public class StudentController extends UserController implements showCourses {
     public void viewInfoTeacher() {
 
     	for(Course course: student.getCourses()) {
-    		System.out.println(course.getTeacher() + "/n");
+    		System.out.println(course.getTeacher());
     	}
     	
     }
@@ -82,7 +79,7 @@ public class StudentController extends UserController implements showCourses {
     
     public void showBooks() {
     	for(Book book:student.getBooks()) {
-    		System.out.println(book+"\n");
+    		System.out.println(book);
     	}
     }
     
@@ -90,6 +87,7 @@ public class StudentController extends UserController implements showCourses {
     	if(student.getYearOfStudy()!=4 || student.getDegree()!=Degree.BACHELOR) {
     		System.out.println("No Diploma project!");
     	}
+    	
     	else if(student.getDiploma() == null) {
     		int input,index;
     		TeacherModel teacher = null;
@@ -166,6 +164,7 @@ public class StudentController extends UserController implements showCourses {
 				DiplomaProject diploma= new DiplomaProject(teacher, course);
 				student.setDiploma(diploma);
 				System.out.println("Вы успешно создали дипломную работу");
+				
     		}
 
     		
@@ -174,7 +173,13 @@ public class StudentController extends UserController implements showCourses {
     	else {
     		System.out.println("У вас уже есть дипломная работа");
     	}
+    	
+    	
 }
+    
+    public void getAttendance() {
+    	
+    }
 
 	@Override
 	public void viewCourses() {
