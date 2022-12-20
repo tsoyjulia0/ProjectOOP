@@ -9,22 +9,25 @@ import Model.TeacherModel;
 public class Course extends CourseInfo{
 	private int numOfStudents;
 	private TeacherModel teacher;
-	private StudentModel student;
+//	private StudentModel student;  //c
 	public Vector<String> courseFiles = new Vector<>();
-	public Vector<StudentModel> allStudents = new Vector<>();
+//	public Vector<StudentModel> allStudents = new Vector<>(); //c
 	private Vector<LessonModel> lessons = new Vector<>();
 	
 	public Course() {
 		
 	}
 	
+	// getStudents()  who has course (this)
+	// return Database.students.filter(s->s.marks.keyset().contains(this)).collect(Collectors.toList);
+	
 	{
 		teachers.add(teacher);
+		DataBase.addCourse(this);
 	}
 	
-	public Course(CourseInfo courseInfo,TeacherModel teacher, Vector<StudentModel> students) {
+	public Course(CourseInfo courseInfo,TeacherModel teacher) {
 		super(courseInfo.getID(),courseInfo.getName(),courseInfo.getPrereq(),courseInfo.getNumOfCred());
-		allStudents=students;
 		this.teacher=teacher;
 	}
 	
@@ -44,13 +47,13 @@ public class Course extends CourseInfo{
 		courseFiles.remove(file);
 	}
 	
-	public Object getStudent() {
-		return student;
-	}
+//	public Object getStudent() {
+//		return 
+//	}
 	
-	public Vector<StudentModel> getStudents(){
-		return allStudents;
-	}
+//	public Vector<StudentModel> getStudents(){
+//		return allStudents;
+//	}
 	
 	public Object getTeacher() {
 		return teacher;
