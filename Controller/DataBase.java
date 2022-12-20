@@ -2,10 +2,11 @@ package Controller;
 
 import java.util.Vector;
 import java.util.HashMap;
-import Model.ManagerModel;
+//import Model.ManagerModel;
 import Model.StudentModel;
 import Model.TeachDegree;
 import Model.TeacherModel;
+import Model.UserModel;
 public class DataBase {
 	private static DataBase database;
 	
@@ -15,7 +16,7 @@ public class DataBase {
     private static Vector<ManagerModel> managers;
     private static Vector<Mark> marks;
     private static Vector<CourseInfo> courseInfo;
-    private static HashMap<Book,Boolean> books=new HashMap<Book,Boolean>();
+    private static HashMap<String ,Vector<Book>> books=new HashMap<String ,Vector<Book>>();
     
     static {
     	teachers = new Vector<TeacherModel> ();
@@ -25,10 +26,45 @@ public class DataBase {
     	marks = new Vector<Mark>();
     	courseInfo = new Vector<CourseInfo>();
     }
-    @SuppressWarnings("unchecked")
 	public static Vector<Book> getBooks(){
-    	return (Vector<Book>) books.keySet();
+    	Vector<Book> b=new Vector<Book>();
+    	for(Vector<Book> vector:books.values()) {
+    		for(Book book:vector) {
+    			b.add(book);
+    		}
+    	}
+    	return b;
     }
+	public static Vector<Book> getBooks(String name){
+		if(books.get(name)==null) {
+			return new Vector<Book>();
+		}
+		else {
+			return books.get(name);
+		}
+    }
+	public static Vector<Book> getBooks(UserModel user){
+		Vector<Book> result=new Vector<Book>();
+		for(Vector<Book> vector:books.values()) {
+			for(Book book:vector) {
+				if(book.getOwner().equals(user)) {
+					result.add(book);
+				}
+			}
+		}
+		return result;
+    }
+	
+	  public static void addBook(Book b) {
+		if(books.get(b.getName())==null) {
+			books.put(b.getName(), new Vector<Book>());
+			books.get(b.getName()).add(b);
+		}
+		else {
+			books.get(b.getName()).add(b);
+		}
+	}
+
     
     public static synchronized DataBase getInstance() {
     	if(database==null) {
@@ -36,10 +72,6 @@ public class DataBase {
     	}
     	return database;
     }
-    public static void addBook(Book b) {
-    	books.put(b, true);
-    }
-    
     public static Vector<TeacherModel> getTeachers(Object sender) {
     	if(sender instanceof StudentModel) {
     		System.out.println("Нет доступа");
@@ -107,7 +139,7 @@ public class DataBase {
     public static Vector<Course> getCourses(TeacherModel teacher){
 		Vector<Course> availableCourses=new Vector<Course>();
 		for(Course course:courses) {
-			if(course.getTeacher()==teacher) {
+			if(teacher.equals(course.getTeacher())) {
 				availableCourses.add(course);
 			}
 		}
@@ -128,7 +160,7 @@ public class DataBase {
     	Vector<CourseInfo> result=new Vector<>();
     	for(CourseInfo course:courseInfo) {
     		for(TeacherModel lector: getLectors()) {
-    			if(lector==teacher) {
+    			if(teacher.equals(lector)) {
     				result.add(course);
     				break;
     			}
