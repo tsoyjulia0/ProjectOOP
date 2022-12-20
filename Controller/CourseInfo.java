@@ -12,14 +12,14 @@ public class CourseInfo {
 	protected int courseId;
 	protected String courseName;
 	protected String prereq;
-	protected int numOfCredits;
+	protected int numOfCredits = 0;
 	protected Vector<LessonModel> allLessons = new Vector<>();
 	
 	Vector<TeacherModel> teachers = new Vector<>();
 	
 	private Vector<Course> courses=new Vector<>();
-	public void createCourse(TeacherModel teacher,Vector<StudentModel> students) {
-		Course course=new Course(this,teacher,students);
+	public void createCourse(TeacherModel teacher) {
+		Course course=new Course(this,teacher);
 		courses.add(course);
 		DataBase.addCourse(course);
 		System.out.println("Created");
