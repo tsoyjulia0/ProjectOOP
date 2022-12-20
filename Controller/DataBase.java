@@ -1,7 +1,7 @@
 package Controller;
 
 import java.util.Vector;
-
+import java.util.HashMap;
 import Model.ManagerModel;
 import Model.StudentModel;
 import Model.TeachDegree;
@@ -15,7 +15,7 @@ public class DataBase {
     private static Vector<ManagerModel> managers;
     private static Vector<Mark> marks;
     private static Vector<CourseInfo> courseInfo;
-    
+    private static HashMap<Book,Boolean> books=new HashMap<Book,Boolean>();
     
     static {
     	teachers = new Vector<TeacherModel> ();
@@ -23,6 +23,11 @@ public class DataBase {
     	students = new Vector<StudentModel>();
     	managers = new Vector<ManagerModel>();
     	marks = new Vector<Mark>();
+    	courseInfo = new Vector<CourseInfo>();
+    }
+    @SuppressWarnings("unchecked")
+	public static Vector<Book> getBooks(){
+    	return (Vector<Book>) books.keySet();
     }
     
     public static synchronized DataBase getInstance() {
@@ -30,6 +35,9 @@ public class DataBase {
     		database=new DataBase();
     	}
     	return database;
+    }
+    public static void addBook(Book b) {
+    	books.put(b, true);
     }
     
     public static Vector<TeacherModel> getTeachers(Object sender) {
@@ -59,10 +67,6 @@ public class DataBase {
     public static void removeCourse(Course c) {
     	courses.remove(c);
     }
-	
-    public static void addCourseInfo(CourseInfo course) {
-    	courseInfo.add(course);
-    }
     
     public static void removeMarks(Mark mr) {
     	marks.remove(mr);
@@ -74,6 +78,10 @@ public class DataBase {
     
     public static void addCourse(Course t) {
     	courses.add(t);
+    }
+    
+    public static void addCourseInfo(CourseInfo course) {
+    	courseInfo.add(course);
     }
     
     public static Vector<StudentModel> getStudents(Object sender) {
@@ -132,9 +140,11 @@ public class DataBase {
     public static Vector<CourseInfo> getCourseInfo(){
     	return courseInfo;
     }
+    
 //    public static Vector<TeacherModel> getLectors(CourseInfo course){
 //    	return course.getTeachers();
 //    }
+    
     public static void addManager(ManagerModel m) {
     	managers.add(m);
     }
