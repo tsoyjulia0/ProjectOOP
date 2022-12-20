@@ -12,12 +12,11 @@ import Controller.Mark;
 import Controller.Organization;
 
 public class StudentModel extends UserModel {
-//    private Integer rate;
+
     private Integer yearOfStudy;
     private Degree degree;
     public int cntCredits = 0;
     private String org;
-    private Vector<Book> books;
     private Vector<Course> courses;
     private Organization organization;
     private Faculty faculty;
@@ -29,7 +28,6 @@ public class StudentModel extends UserModel {
     
     {
     	marks = new Vector<Mark>();
-    	books = new Vector<Book>();
     	courses = new Vector<Course>();
     	DataBase.addStudent(this);
     }
@@ -96,15 +94,6 @@ public class StudentModel extends UserModel {
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
-
-    public Vector<Book> getBooks() {
-        return this.books;
-    }
-
-    public void setBooks(Vector<Book> books) {
-        this.books = books;
-    }
-
     public DiplomaProject getDiploma() {
         return this.diploma;
     }
