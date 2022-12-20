@@ -1,75 +1,61 @@
-package Controller;
+package Model;
+
+import java.util.Objects;
 import java.util.Vector;
 
-import Model.ManagerModel;
-import Model.StudentModel;
-import Model.TeacherModel;
+import Controller.DataBase;
 
-public class ManagerController extends EmployeeController {
-	private ManagerModel m;
-	private StudentModel s;
-	private Course course;
-	private Vector<String> News= new Vector<>();
-	
-	public ManagerController(ManagerModel m) {
-		super(m);
+public class ManagerModel extends EmployeeModel implements Cloneable{
+	private ManagerType type;
+	private String news;
+	Vector<String> News= new Vector<>();
+
+	public ManagerModel() {
+
 	}
-	
-	
-	public void addCourseForReg(Course c) {
-		DataBase.addCourse(c);
+
+	public ManagerModel(int id, String login,String pass, String name, String surname, Gender g, ManagerType type) {
+		super(id, login, pass, name, surname, g);
+		this.type = type;
 	}
-	
-	public static boolean approveReg(StudentModel s, Course c) {   
-		DataBase.getCourses();
-		if(c.getPrereq() != null) {
-			return false;
-		}
-		
-		if(s.cntCredits + c.numOfCredits <= 21) {
-			DataBase.addStudent(s);
-			c.allStudents.add(s);
-			return true;
-		}
-		return false;
+
+	{
+		News = new Vector<String>();
+		DataBase.addManager(this);
 	}
-	
-	public void assignCourse(Course c, TeacherController t) {
-//		DataBase.addCourse(c);            
-		t.allCourses.add(c);
+
+	private void setNews(String news) {
+		this.news = news;
 	}
-	
-	public void showReport() {
-		
+
+	public String getNews() {
+		return this.news;
 	}
-	
-	public void manageNews(String news, String action) {
-		if(action == "add") {
-			News.add(news);
-		}
-		else if(action == "delete") {
-			News.remove(news);
-		}
+
+	public String toString() {
+		return "Name :" + this.getName() + " ID: " + this.getId() + " News: " + this.getNews();
 	}
-	
-	public void viewInfo(Object obj) {
-		if(obj instanceof StudentModel) {
-			DataBase.getStudents(obj);
-		}
-		else if(obj instanceof TeacherModel) {
-			DataBase.getTeachers(obj);
-		}
-	}
-	
-	public void viewRequestEmployees() {
-		for(String value : requests.values()) {
-			System.out.println(value);
-		}
-	}
-	
-	
-	
-	
-	
+
+	public boolean equals(Object o) {
+		if(!super.equals(o)) return false;
+		ManagerModel m = (ManagerModel)o;
+		return news == m.news;
+    }
+
+    public int hashCode() {
+    	return	Objects.hash(news);
+    }
+
+    public Object clone() throws CloneNotSupportedException{
+    	ManagerModel m = (ManagerModel)super.clone();
+    	return m;
+    }
+
+    public int compareTo(ManagerModel m) {
+   	 	if(m.id > this.id) return -1;
+   	 	else if(m.id < this.id) return 1;
+   	 	else return 0;
+   }
+
 
 }
