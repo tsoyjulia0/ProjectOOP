@@ -7,81 +7,69 @@ import Model.StudentModel;
 import Model.TeacherModel;
 
 public class Mark implements Serializable {
-		 private double points;
-		    private double firstAttestation = 0;
-		    private double secondAttestation = 0;
+		    private double firstAttestation = -1;
+		    private double secondAttestation = -1;
 		    private double finalExam = 0;
-		    private double total;
-		    private double gpa = 0;
-		    private double digit_mark;
-		    private String literalMark;
-		    private StudentModel student;
-		    private TypeOfMark type;
-		    
-		    private double getPoints() {
-		        return this.points;
-		    }
-		    private void setPoints(double points) {
-		        this.points = points;
-		    }
-		    
+		    private double digit_mark=0.00;
+		    private String literalMark="";
+		    private Vector<Double> grades= new Vector<Double>();
 		    public String getLiteralMark() {
 		        return this.literalMark;
 		    }
-
+		    public void addGrade(double points) {
+		    	grades.add(points);
+		    }
 		    public double getDigitMark() {
 		        return this.digit_mark;
 		    }
-		    private void setLiteralMark(String literalMark) {
-		        this.literalMark = literalMark;
-		    }
-//		    public StudentModel getStudent() {
-//		        return this.student;
-//		    }
-//		    public void setStudent(StudentModel student) {
-//		        this.student = student;
-//		    }
 		    public double getFirstAttestation() {
 		        return this.firstAttestation;
 		    }
-		    public void setFirstAttestation(double first_attestation) {
-		        this.firstAttestation = first_attestation;
-		    }
-		    public double getSecondAttestation() {
-		        return this.secondAttestation;
-		    }
-		    public void setSecondAttestation(double secondAttestation) {
-		        this.secondAttestation = secondAttestation;
+		    public void setAttestation() {
+		    	if(this.firstAttestation==-1) {
+			    	double result=0;
+			    	for(Double d:grades) {
+			    		result+=d;
+			    	}
+			        this.firstAttestation = result;
+			        grades.clear();
+		    	}
+		    	else if(this.secondAttestation==-1){
+		    		System.out.println("Первая аттестация выставлена");
+			    	double result=0;
+			    	for(Double d:grades) {
+			    		result+=d;
+			    	}
+			        this.secondAttestation = result;
+			        grades.clear();
+		    	}
+		    	System.out.println("Аттестации выставлены");
 		    }
 		    public double getFinal() {
 		        return this.finalExam;
 		    }
 		    public void setFinal(double finalExam) {
-		        this.finalExam = finalExam;
+		    	if(this.firstAttestation !=-1 && this.secondAttestation!=-1) {
+		    		this.finalExam = finalExam;
+		    		transformMark(firstAttestation+secondAttestation+finalExam);
+		    	}
+		    	else {
+		    		System.out.println("Сначала выставите аттестации");
+		    	}
 		    }
 		    public double getTotal() {
-		        this.total = getFirstAttestation() + getSecondAttestation() + getFinal();
-		        return this.total;
-		    }
-		    public void setTotal(double total) {
-		        this.total = total;
-		    }
-		    public Double getGpa() {
-		        return gpa;
-		    }
-		    public void setGpa(double gpa) {
-		        this.gpa = gpa;
+		    	double result=0;
+		    	for(Double d:grades) {
+		    		result+=d;
+		    	}
+		    	return result;
 		    }
 		    public String toString() {
 		        return "Mark{" +
-		                "points=" + points +
 		                ", firstAttestation=" + firstAttestation +
 		                ", secondAttestation=" + secondAttestation +
 		                ", finalExam=" + finalExam +
-		                ", total=" + total +
-		                ", literalMark=" + literalMark +
-		                ", student=" + student +
-		                '}';
+		                ", literalMark=" + literalMark;
 		    }
 		    public void transformMark(double total) {
 		        if (total >= 94.5) {
@@ -130,21 +118,6 @@ public class Mark implements Serializable {
 		        }
 		    }
 		    
-		    public void putMark(TypeOfMark typeOfMark, double points) {
-		    	this.points = points;
-		    	this.type = typeOfMark;
-		        if (typeOfMark == TypeOfMark.FIRST_ATTESTATION) {
-		            this.firstAttestation += points;
-		            
-		        }
-		        else if (typeOfMark == TypeOfMark.SECOND_ATTESTATION) {
-		            this.secondAttestation += points;
-		        }
-		        else if (typeOfMark == TypeOfMark.FINAL) {
-		            this.finalExam += points;
-		            this.transformMark(this.getTotal());
-		        }
-		    }
 		}
 
 
