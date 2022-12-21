@@ -1,133 +1,150 @@
 package Controller;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import Model.StudentModel;
 import Model.TeacherModel;
 
-public class Mark {
-	private Vector<Integer> grade;
-    private char letter;
-    private Course c;
-    public int fAtt;
-    public int sAtt;
-    public int finalEx;
-    private StudentModel student;
-    private TeacherModel teacher;
-    private StudentController studentController;
-    private TeacherController teacherController;
-    
-    public Mark() {
-    	
-    }
-    
-    public Mark(char letter, Course c, int fAtt, int sAtt, int finalEx, StudentModel student,TeacherModel teacher,StudentController studentContreller,TeacherController teacherController) {
-    	this.letter=letter;
-    	this.c=c;
-    	this.fAtt=fAtt;
-    	this.sAtt=sAtt;
-    	this.finalEx=finalEx;
-    	this.student=student;
-    	this.teacher=teacher;
-    	this.studentController=studentController;
-    	this.teacherController=teacherController;
-    	
-    }
-    
-    public Vector<Integer> getGrade() {
-        return this.grade;
-    }
-    
-    private void setGrade(Vector<Integer> grade) {
-        this.grade = grade;
-    }
-    
-    private void setLetter() {
-        this.letter=letter;
-    }
-    
-    public char getLetter() {
-       return this.letter;
-    }
-    
-    public Course getCourse() {
-        return this.c;
-    }
-    
-    private void setCourse(Course c) {
-        this.c = c;
-    }
-    
-    public int getFirstAtt() {
-        return this.fAtt;
-    }
+public class Mark implements Serializable {
+		 private double points;
+		    private double firstAttestation = 0;
+		    private double secondAttestation = 0;
+		    private double finalExam = 0;
+		    private double total;
+		    private double gpa = 0;
+		    private double digit_mark;
+		    private String literalMark;
+		    private StudentModel student;
+		    private TypeOfMark type;
+		    
+		    private double getPoints() {
+		        return this.points;
+		    }
+		    private void setPoints(double points) {
+		        this.points = points;
+		    }
+		    
+		    public String getLiteralMark() {
+		        return this.literalMark;
+		    }
 
-    private void setFirstAtt(int fAtt) {
-        this.fAtt = fAtt;
-    }
-    
-    public int getSecondAtt() {
-        return this.sAtt;
-    }
+		    public double getDigitMark() {
+		        return this.digit_mark;
+		    }
+		    private void setLiteralMark(String literalMark) {
+		        this.literalMark = literalMark;
+		    }
+//		    public StudentModel getStudent() {
+//		        return this.student;
+//		    }
+//		    public void setStudent(StudentModel student) {
+//		        this.student = student;
+//		    }
+		    public double getFirstAttestation() {
+		        return this.firstAttestation;
+		    }
+		    public void setFirstAttestation(double first_attestation) {
+		        this.firstAttestation = first_attestation;
+		    }
+		    public double getSecondAttestation() {
+		        return this.secondAttestation;
+		    }
+		    public void setSecondAttestation(double secondAttestation) {
+		        this.secondAttestation = secondAttestation;
+		    }
+		    public double getFinal() {
+		        return this.finalExam;
+		    }
+		    public void setFinal(double finalExam) {
+		        this.finalExam = finalExam;
+		    }
+		    public double getTotal() {
+		        this.total = getFirstAttestation() + getSecondAttestation() + getFinal();
+		        return this.total;
+		    }
+		    public void setTotal(double total) {
+		        this.total = total;
+		    }
+		    public Double getGpa() {
+		        return gpa;
+		    }
+		    public void setGpa(double gpa) {
+		        this.gpa = gpa;
+		    }
+		    public String toString() {
+		        return "Mark{" +
+		                "points=" + points +
+		                ", firstAttestation=" + firstAttestation +
+		                ", secondAttestation=" + secondAttestation +
+		                ", finalExam=" + finalExam +
+		                ", total=" + total +
+		                ", literalMark=" + literalMark +
+		                ", student=" + student +
+		                '}';
+		    }
+		    public void transformMark(double total) {
+		        if (total >= 94.5) {
+		            literalMark = "A";
+		            digit_mark = 4.0;
+		        }
+		        else if (total >= 89.5) {
+		            literalMark = "A-";
+		            digit_mark = 3.67;
+		        }
+		        else if (total >= 84.5) {
+		            literalMark = "B+";
+		            digit_mark = 3.33;
+		        }
+		        else if (total >= 79.5) {
+		            literalMark = "B";
+		            digit_mark = 3.0;
+		        }
+		        else if (total >= 74.5) {
+		            literalMark = "B-";
+		            digit_mark = 2.67;
+		        }
+		        else if (total >= 69.5) {
+		            literalMark = "C+";
+		            digit_mark = 2.33;
+		        }
+		        else if (total >= 64.5) {
+		            literalMark = "C";
+		            digit_mark = 2.0;
+		        }
+		        else if (total >= 59.5) {
+		            literalMark = "C-";
+		            digit_mark = 1.67;
+		        }
+		        else if (total >= 54.5) {
+		            literalMark = "D+";
+		            digit_mark = 1.33;
+		        }
+		        else if (total >= 50) {
+		            literalMark = "D";
+		            digit_mark = 1.0;
+		        }
+		        else {
+		            literalMark = "F";
+		            digit_mark = 0;
+		        }
+		    }
+		    
+		    public void putMark(TypeOfMark typeOfMark, double points) {
+		    	this.points = points;
+		    	this.type = typeOfMark;
+		        if (typeOfMark == TypeOfMark.FIRST_ATTESTATION) {
+		            this.firstAttestation += points;
+		            
+		        }
+		        else if (typeOfMark == TypeOfMark.SECOND_ATTESTATION) {
+		            this.secondAttestation += points;
+		        }
+		        else if (typeOfMark == TypeOfMark.FINAL) {
+		            this.finalExam += points;
+		            this.transformMark(this.getTotal());
+		        }
+		    }
+		}
 
-    private void setSecondAtt(int sAtt) {
-        this.sAtt = sAtt;
-    }
-    
-    public int getFinal() {
-        return this.finalEx;
-    }
-    
-    private void setFinal(int finalEx) {
-        this.finalEx = finalEx;
-    }
-    
-    public StudentModel getStudent() {
-        return this.student;
-    }
-    
-    private void setStudent(StudentModel student) {
-        this.student = student;
-    }
-    
-    public TeacherModel getTeacher() {
-        return this.teacher;
-    }
-    
-    private void setTeacher(TeacherModel teacher) {
-        this.teacher = teacher;
-    }
-    
-    public String toString() {
-    	return "Course: " + this.c + " ,fAtt: " + this.fAtt + " ,sAtt: " +
-				 this.sAtt + " ,Final: " + this.finalEx+" ,StudentModel: " + this.student + " ,TeacherModel: " +
-				 this.teacher + " ,StudentController: " + this.studentController+" ,TeacherController: " + this.teacherController;
-    }
-    
-    public void putMark(int mark) {
-    	grade.add(mark);
-    }
-    
-    public void deleteMark(int mark) {
-    	grade.remove(mark);
-    }
-    
-    public boolean equals(Object o) {
-		if(this==o) return true;
-		if(o==null) return false;
-		if(this.getClass()!=o.getClass()) return false;
-		Mark m=(Mark)o;
-		return finalEx==m.finalEx;
-    }
-
-    public int compareTo(Mark m) {
-    	 if (m.finalEx < this.finalEx) {
-      	      return 1;
-      	 }
-       	 else if (m.finalEx > this.finalEx) {
-      	      return -1;
-      	 }
-       	 else return 0;
-      	}
-}
 
